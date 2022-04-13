@@ -1,20 +1,24 @@
 <template>
 <div id="app">
   <div class="header">
-    <router-link to="/">
-      <div class="logo">
-        <img src="/ordinary.png">
-      </div>
-    </router-link>
+
     <div class="title">
-      <h1>Museum of Ordinary Objects</h1>
+      <h1>Fakestagram</h1>
     </div>
+
+    <div class="menuButton">
+      <router-link to="/">Home</router-link>
+    </div>
+    
+    <div class="menuButton">
+      <router-link to="/admin">New Post</router-link>
+    </div>
+
   </div>
   <div class="content">
     <router-view />
   </div>
   <div class="footer">
-    <router-link to="/admin">Admin</router-link>
     <div>
     <a href="https://github.com/BYUCS260/museum-JJayLeee.git">https://github.com/BYUCS260/museum-JJayLeee.git</a>
     </div>
@@ -38,17 +42,33 @@ body {
 /* Header */
 .header {
   display: flex;
-  padding: 10px 100px 0px 100px;
-  background-color: #5BDEFF;
-  color: #1C454F;
+  padding: 5px 100px 5px 100px;
+  background-color: purple;
+  color: white;
+}
+
+.menuButton {
+  align-self: center;
+  margin-left: 2%;
+  font-size: 20px;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.menuButton a {
+  font-style: bold;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
 }
 
 .title {
-  margin-top: 5px;
+  font-family: Brush Script MT, Brush Script Std, cursive;
 }
 
 .title h1 {
-  font-size: 30px;
+  font-size: 60px;
+  text-decoration:
 }
 
 .content {

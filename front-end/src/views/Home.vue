@@ -1,11 +1,16 @@
 <template>
 <div class="home">
-  <section class="image-gallery">
-    <div class="image" v-for="item in items" :key="item.id">
-      <h2>{{item.title}}</h2>
+  <div class="post-gallery">
+    <div class="post" v-for="item in items" :key="item.id">
       <img :src="item.path" />
+
+      <div class="postInfo">
+        <h2>{{item.title}}</h2>
+        <p>{{item.content}}content</p>
+      </div>
+
     </div>
-  </section>
+  </div>
 </div>
 </template>
 
@@ -38,49 +43,38 @@ export default {
 </script>
 
 <style scoped>
-.image h2 {
-  font-style: italic;
+.home {
+  display: flex;
+  justify-content: center;
 }
 
-/* Masonry */
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
+.post-gallery {
+  margin:;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+
 }
 
-.image-gallery {
-  column-gap: 1.5em;
+.post {
+  display: flex;
+  width: 50%;
+  margin: 40px;
 }
 
-.image {
-  margin: 0 0 1.5em;
-  display: inline-block;
-  width: 100%;
+.post img {
+  width: 50%;
 }
 
-.image img {
-  width: 100%;
+.postInfo {
+  margin: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-/* Masonry on large screens */
-@media only screen and (min-width: 1024px) {
-  .image-gallery {
-    column-count: 4;
-  }
+.postInfo h2 {
+  font-size: 30px;
 }
 
-/* Masonry on medium-sized screens */
-@media only screen and (max-width: 1023px) and (min-width: 768px) {
-  .image-gallery {
-    column-count: 3;
-  }
-}
-
-/* Masonry on small screens */
-@media only screen and (max-width: 767px) and (min-width: 540px) {
-  .image-gallery {
-    column-count: 2;
-  }
-}
 </style>

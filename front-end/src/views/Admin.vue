@@ -1,25 +1,32 @@
 <template>
   <div class="admin">
-    <h1>The Admin Page!</h1>
+    <h1>Add a new post!</h1>
     <div class="heading">
       <div class="circle">1</div>
-      <h2>Add an Item</h2>
+      <h2>Choose a photo and title</h2>
     </div>
     <div class="add">
+
+
       <div class="form">
         <input v-model="title" placeholder="Title">
         <p></p>
         <input type="file" name="photo" @change="fileChanged">
         <button @click="upload">Upload</button>
       </div>
+
       <div class="upload" v-if="addItem">
         <h2>{{addItem.title}}</h2>
         <img :src="addItem.path" />
       </div>
+
+
       <div class="heading">
         <div class="circle">2</div>
         <h2>Edit/Delete an Item</h2>
       </div>
+
+
       <div class="edit">
         <div class="form">
           <input v-model="findTitle" placeholder="Search">
@@ -28,16 +35,22 @@
             </div>
           </div>
         </div>
+
+
         <div class="upload" v-if="findItem">
           <input v-model="findItem.title">
           <p></p>
           <img :src="findItem.path" />
         </div>
+
         <div class="actions" v-if="findItem">
           <button @click="deleteItem(findItem)">Delete</button>
           <button @click="editItem(findItem)">Edit</button>
         </div>
+        
       </div>
+
+
     </div>
 
   </div>
@@ -52,6 +65,7 @@ export default {
     return {
       items: [],
       title: "",
+      content: "",
       file: null,
       addItem: null,
       findTitle: "",
@@ -129,6 +143,12 @@ export default {
 
 
 <style scoped>
+
+.admin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 /* Suggestions */
 .suggestions {
