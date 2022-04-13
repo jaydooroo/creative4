@@ -15,6 +15,9 @@
   </div>
   <div class="footer">
     <router-link to="/admin">Admin</router-link>
+    <div>
+    <a href="https://github.com/BYUCS260/museum-JJayLeee.git">https://github.com/BYUCS260/museum-JJayLeee.git</a>
+    </div>
   </div>
 </div>
 </template>
