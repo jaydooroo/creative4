@@ -19,8 +19,9 @@
     <div class="footer">
       <div>
         <a href="https://github.com/BYUCS260/museum-JJayLeee.git"
-          >https://github.com/BYUCS260/museum-JJayLeee.git</a
-        >
+          >https://github.com/BYUCS260/museum-JJayLeee.git</a>
+
+          <p>Jaehyun Lee AND Jonghyun Lee</p>
       </div>
     </div>
   </div>
@@ -83,10 +84,10 @@ body {
 
 /* Footer */
 .footer {
-  height: 50px;
+  height: 90px;
   padding: 20px 100px 0px 100px;
   background: #e3e3e3;
-  font-size: 12px;
+  font-size: 20px;
 }
 
 .footer a {

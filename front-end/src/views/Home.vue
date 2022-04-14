@@ -1,27 +1,36 @@
 <template>
   <div class="post-gallery">
     <div class="post" v-for="item in items" :key="item.id">
+      <div class="postInside">
       <img :src="item.path" />
+      <hr/>
 
       <div class="postInfo">
         <h2>{{ item.title }}</h2>
         <p>{{ item.textarea }}</p>
       </div>
+      </div>
       <div class="edit">
+
         <div class="form">
-          <button @click="deleteItem(item)">Delete</button>
-          <button @click="editItem1(item)">Edit</button>
+          <button @click="editItem1(item)"><img src="/edit.png" /></button>
+          <button @click="deleteItem(item)"> <img class="logo" src="/delete.png" /></button>
         </div>
+
         <div class="upload" v-if="findItem">
+
           <input v-model="findItem.title" />
           <br />
           <br />
           <input class="textareaInput" v-model="findItem.textarea" />
           <input type="file" name="photo" @change="fileChanged" />
+
           <div class="actions" v-if="findItem">
-            <button @click="editItem2(findItem)">post</button>
+            <button @click="editItem2(findItem)"><img src="/submit.png" /></button>
           </div>
+
         </div>
+
       </div>
     </div>
   </div>
@@ -81,14 +90,21 @@ export default {
 
     async editItem2(item) {
       try {
-        const formData = new FormData();
-        formData.append("photo", this.file, this.file.name);
-        let r1 = await axios.post("/api/photos", formData);
-        await axios.put("/api/items/" + item._id, {
-          title: this.findItem.title,
-          path: r1.data.path,
-          textarea: this.findItem.textarea,
-        });
+        if (this.file != null) {
+          const formData = new FormData();
+          formData.append("photo", this.file, this.file.name);
+          let r1 = await axios.post("/api/photos", formData);
+          await axios.put("/api/items/" + item._id, {
+            title: this.findItem.title,
+            path: r1.data.path,
+            textarea: this.findItem.textarea,
+          });
+        } else {
+          await axios.put("/api/items/" + item._id, {
+            title: this.findItem.title,
+            textarea: this.findItem.textarea,
+          });
+        }
         this.findItem = null;
         this.file = null;
         this.getItems();
@@ -116,43 +132,79 @@ export default {
   align-items: center;
   flex-direction: column;
   justify-content: start;
-  border-color: red;
-  border-width: 10px;
-  border-style: solid;
-  width: 70%;
-  margin-top: 10%;
+  margin: 10%;
+}
+
+input {
+  font-size: 20px;
+}
+
+hr {
+  margin-top: 50px;
+  border-top: solid 5px purple;
+  width: 100%;
 }
 
 .post {
   display: flex;
-  width: 50%;
-  margin: 40px;
   align-items: center;
-  border-color: rgb(25, 0, 255) d;
-  border-width: 10px;
+  flex-direction: column;
+}
+
+.postInside {
+  display: flex;
+  width: 700px;
+  padding: 30px;
+  align-items: center;
+  border-color: purple;
+  border-width: 5px;
   border-style: solid;
+  border-radius: 50px;
   flex-direction: column;
 }
 
 .post img {
   width: 70%;
-  border-color: rgb(25, 0, 255) d;
-  border-width: 10px;
-  border-style: solid;
 }
 
+.actions img {
+  width: 35px;
+}
+.textareaInput {
+  width: 100%;
+  height: 100px;
+  margin-bottom: 10px;
+}
+
+
 .postInfo {
-  margin: 10%;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-bottom: 10%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border-color: rgb(62, 54, 134) d;
-  border-width: 10px;
-  border-style: solid;
   width: 100%;
 }
 
+.form img {
+  width: 35px;
+}
+
 .postInfo h2 {
+  width: 100%;
   font-size: 30px;
+  font-weight: 900;
+}
+
+.postInfo p {
+  word-break: normal;
+  white-space: normal;
+  font-size: 25px;
+}
+
+.upload {
+  display: flex;
+  flex-direction: column;
 }
 </style>

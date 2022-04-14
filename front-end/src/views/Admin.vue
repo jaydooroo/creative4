@@ -1,13 +1,10 @@
 <template>
   <div class="admin">
-    <h1>The Admin Page!</h1>
-    <div class="heading">
-      <div class="circle">1</div>
-      <h2>Add an Item</h2>
-    </div>
+    <h1>Post</h1>
+
     <div class="add">
       <div class="form">
-        <input v-model="title" placeholder="Title" />
+        <input class="titleInput" v-model="title" placeholder="Title" />
         <input
           class="textareaInput"
           v-model="textarea"
@@ -15,7 +12,7 @@
         />
         <p></p>
         <input type="file" name="photo" @change="fileChanged" />
-        <button @click="upload">Upload</button>
+        <button class="upload" @click="upload">Upload</button>
       </div>
       <div class="upload" v-if="addItem">
         <h2>{{ addItem.title }}</h2>
@@ -114,12 +111,34 @@ export default {
 </script>
 <style scoped>
 .admin {
+  display: flex;
+  padding: 20px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin-top: 10%;
+  border: solid 5px purple;
+  border-radius: 10px;
+}
+
+.admin h1 {
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.form input {
+  font-size: 30px;
+  margin-top: 20px;
+  margin-bottom: 50px;
 }
 
 .image h2 {
   font-style: italic;
-  font-size: 1em;
+  font-size: 50px;
+}
+
+.form button {
+  font-size: 30px;
 }
 
 .heading {
@@ -161,7 +180,7 @@ button {
 .form {
   display: flex;
   flex-direction: column;
-  margin-right: 50px;
+  
 }
 
 /* Uploaded images */
@@ -190,5 +209,13 @@ button {
 .textareaInput {
   width: 100%;
   height: 100px;
+}
+
+.titleInput {
+  width: 100%;
+  margin-bottom: 10px;
+}
+.upload {
+  margin-top: 10px;
 }
 </style>
