@@ -1,29 +1,29 @@
 <template>
-<div id="app">
-  <div class="header">
+  <div id="app">
+    <div class="header">
+      <div class="title">
+        <h1>Fakestagram</h1>
+      </div>
 
-    <div class="title">
-      <h1>Fakestagram</h1>
-    </div>
+      <div class="menuButton">
+        <router-link to="/">Home</router-link>
+      </div>
 
-    <div class="menuButton">
-      <router-link to="/">Home</router-link>
+      <div class="menuButton">
+        <router-link to="/admin">New Post</router-link>
+      </div>
     </div>
-    
-    <div class="menuButton">
-      <router-link to="/admin">New Post</router-link>
+    <div class="content">
+      <router-view />
     </div>
-
-  </div>
-  <div class="content">
-    <router-view />
-  </div>
-  <div class="footer">
-    <div>
-    <a href="https://github.com/BYUCS260/museum-JJayLeee.git">https://github.com/BYUCS260/museum-JJayLeee.git</a>
+    <div class="footer">
+      <div>
+        <a href="https://github.com/BYUCS260/museum-JJayLeee.git"
+          >https://github.com/BYUCS260/museum-JJayLeee.git</a
+        >
+      </div>
     </div>
   </div>
-</div>
 </template>
 
 <style>
@@ -32,7 +32,7 @@ html {
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 16px;
   background: #fff;
   padding: 0px;
@@ -41,6 +41,8 @@ body {
 
 /* Header */
 .header {
+  width: 100%;
+  position: fixed;
   display: flex;
   padding: 5px 100px 5px 100px;
   background-color: purple;
@@ -68,10 +70,13 @@ body {
 
 .title h1 {
   font-size: 60px;
-  text-decoration:
+  text-decoration: aliceblue;
 }
 
 .content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 20px 100px;
   min-height: 500px;
 }

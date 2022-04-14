@@ -1,93 +1,59 @@
 <template>
   <div class="admin">
-    <h1>Add a new post!</h1>
+    <h1>The Admin Page!</h1>
     <div class="heading">
       <div class="circle">1</div>
-      <h2>Choose a photo and title</h2>
+      <h2>Add an Item</h2>
     </div>
     <div class="add">
-
-
       <div class="form">
-        <input v-model="title" placeholder="Title">
+        <input v-model="title" placeholder="Title" />
+        <input
+          class="textareaInput"
+          v-model="textarea"
+          placeholder="Description"
+        />
         <p></p>
-        <input type="file" name="photo" @change="fileChanged">
+        <input type="file" name="photo" @change="fileChanged" />
         <button @click="upload">Upload</button>
       </div>
-
       <div class="upload" v-if="addItem">
-        <h2>{{addItem.title}}</h2>
+        <h2>{{ addItem.title }}</h2>
         <img :src="addItem.path" />
       </div>
-
-
-      <div class="heading">
-        <div class="circle">2</div>
-        <h2>Edit/Delete an Item</h2>
-      </div>
-
-
-      <div class="edit">
-        <div class="form">
-          <input v-model="findTitle" placeholder="Search">
-          <div class="suggestions" v-if="suggestions.length > 0">
-            <div class="suggestion" v-for="s in suggestions" :key="s.id" @click="selectItem(s)">{{s.title}}
-            </div>
-          </div>
-        </div>
-
-
-        <div class="upload" v-if="findItem">
-          <input v-model="findItem.title">
-          <p></p>
-          <img :src="findItem.path" />
-        </div>
-
-        <div class="actions" v-if="findItem">
-          <button @click="deleteItem(findItem)">Delete</button>
-          <button @click="editItem(findItem)">Edit</button>
-        </div>
-        
-      </div>
-
-
     </div>
-
   </div>
-
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
+
 export default {
-  name: 'Admin',
+  name: "Admin",
   data() {
     return {
-      items: [],
       title: "",
-      content: "",
       file: null,
       addItem: null,
+      items: [],
       findTitle: "",
       findItem: null,
-    }
-
+      textarea: "",
+      findTextarea: "",
+    };
   },
   computed: {
     suggestions() {
-      let items = this.items.filter(item => item.title.toLowerCase().startsWith(this.findTitle.toLowerCase()));
+      let items = this.items.filter((item) =>
+        item.title.toLowerCase().startsWith(this.findTitle.toLowerCase())
+      );
       return items.sort((a, b) => a.title > b.title);
     },
-    
   },
   created() {
     this.getItems();
   },
   methods: {
-    selectItem(item) {
-      this.findTitle = ""; 
-      this.findItem = item;
-    },
     async deleteItem(item) {
       try {
         await axios.delete("/api/items/" + item._id);
@@ -98,10 +64,19 @@ export default {
         console.log(error);
       }
     },
+    selectItem(item) {
+      this.findTitle = "";
+      this.findTextarea = "";
+      this.findItem = item;
+    },
+    fileChanged(event) {
+      this.file = event.target.files[0];
+    },
     async editItem(item) {
       try {
         await axios.put("/api/items/" + item._id, {
           title: this.findItem.title,
+          textarea: this.findItem.textarea,
         });
         this.findItem = null;
         this.getItems();
@@ -110,7 +85,6 @@ export default {
         console.log(error);
       }
     },
-
     async getItems() {
       try {
         let response = await axios.get("/api/items");
@@ -120,49 +94,27 @@ export default {
         console.log(error);
       }
     },
-    fileChanged(event) {
-      this.file = event.target.files[0]
-    },
     async upload() {
       try {
         const formData = new FormData();
-        formData.append('photo', this.file, this.file.name)
-        let r1 = await axios.post('/api/photos', formData);
-        let r2 = await axios.post('/api/items', {
+        formData.append("photo", this.file, this.file.name);
+        let r1 = await axios.post("/api/photos", formData);
+        let r2 = await axios.post("/api/items", {
           title: this.title,
-          path: r1.data.path
+          path: r1.data.path,
+          textarea: this.textarea,
         });
         this.addItem = r2.data;
       } catch (error) {
         console.log(error);
       }
     },
-  }
-}
+  },
+};
 </script>
-
-
 <style scoped>
-
 .admin {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* Suggestions */
-.suggestions {
-  width: 200px;
-  border: 1px solid #ccc;
-}
-
-.suggestion {
-  min-height: 20px;
-}
-
-.suggestion:hover {
-  background-color: #5BDEFF;
-  color: #fff;
+  margin-top: 10%;
 }
 
 .image h2 {
@@ -184,6 +136,7 @@ export default {
 .add,
 .edit {
   display: flex;
+  flex-direction: column;
 }
 
 .circle {
@@ -193,7 +146,7 @@ export default {
   padding: 8px;
   background: #333;
   color: #fff;
-  text-align: center
+  text-align: center;
 }
 
 /* Form */
@@ -201,11 +154,13 @@ input,
 textarea,
 select,
 button {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 1em;
 }
 
 .form {
+  display: flex;
+  flex-direction: column;
   margin-right: 50px;
 }
 
@@ -216,5 +171,24 @@ button {
 
 .upload img {
   max-width: 300px;
+}
+/* Suggestions */
+.suggestions {
+  width: 200px;
+  border: 1px solid #ccc;
+}
+
+.suggestion {
+  min-height: 20px;
+}
+
+.suggestion:hover {
+  background-color: #5bdeff;
+  color: #fff;
+}
+
+.textareaInput {
+  width: 100%;
+  height: 100px;
 }
 </style>
